@@ -16,72 +16,68 @@
 /* Input Formulario */
 const formulario = document.querySelector("#formulario");
 const inputName = document.querySelector("#nombre");
-const inputSubjet = document.querySelector("#asunto");
+const inputSubject = document.querySelector("#asunto");
 const inputMessage = document.querySelector("#mensaje");
 const inputBtn = document.querySelector("#botton");
-/*Errores para mensaje en input */
-const errorName = document.querySelector("#nombre");
-const errorSubjet = document.querySelector("#asunto");
-const errorMessage = document.querySelector("#mensaje"); 
-/*Regex */
+/* Errores para mensaje en input */
+const errorName = document.querySelector(".errorNombre");
+const errorSubject = document.querySelector(".errorAsunto");
+const errorMessage = document.querySelector(".errorMensaje");
+/* Mensaje de éxito */
+const successMessage = document.querySelector(".resultado");
+/* Regex */
 const regexName = /^[a-zA-Z \.ñÑáéíóúÁÉÍÓÚ]+$/;
-const regexSubjet = /^[a-zA-Z \.ñÑáéíóúÁÉÍÓÚ]+$/;
+const regexSubject = /^[a-zA-Z \.ñÑáéíóúÁÉÍÓÚ]+$/;
 const regexMessage = /^[a-zA-Z \.ñÑáéíóúÁÉÍÓÚ]+$/;
 
-// formulario.addEventListener("submit" , validarCampo);
-formulario.addEventListener("submit" , function(){
-    /*captar el valor de los Input */
-    let name = inputName.value
-    let subject = inputSubjet.value
-    let message = inputMessage.value
 
-    /*Validar cada Input y arrojar un error en el que no pase el text */
+formulario.addEventListener("submit", function(e) {
+    e.preventDefault();
+    /* Capturar el valor de los Input */
+    let name = inputName.value;
+    let subject = inputSubject.value;
+    let message = inputMessage.value;
+
     inputValidador(name, subject, message);
-    /*Si el test pasa, error se va */
-    /*Si hay al menos un text incorrecto, mo puedo enviar el formulario */
-
 });
-
-function inputValidador(name, subject, messege){
+/*Validación  */
+function inputValidador(name, subject, message) {
     const validName = regexName.test(name);
-    const validSubject = regexSubjet.test(subject);
-    const validMessage = regexMessage.test(test);
+    const validSubject = regexSubject.test(subject);
+    const validMessage = regexMessage.test(message);
 
     deleteError();
 
-    if(!validName){
+    if (!validName) {
         errorName.innerHTML = "El Nombre es requerido";
     }
 
-    if(!validSubject){
-        error.innerHTML = "El asunto es requerido";
-    }
-    
-    if(!validMessage){
-        error.innerHTML = "El asunto es requerido";
+    if (!validSubject) {
+        errorSubject.innerHTML = "El asunto es requerido";
     }
 
-    if(validName &&validSubject && validMessage){
+    if (!validMessage) {
+        errorMessage.innerHTML = "El mensaje es requerido";
+    }
+
+    if (validName && validSubject && validMessage) {
         deleteError();
         deleteInputs();
-    }
 
+         //Mensaje de éxito
+         successMessage.innerHTML = "¡Mensaje enviado con éxito!";
+         
+    }
 }
 
-function deleteError(){
+function deleteError() {
     errorName.innerHTML = "";
-    errorSubjet.innerHTML = "";
+    errorSubject.innerHTML = "";
     errorMessage.innerHTML = "";
 }
 
-function deleteInputs(){
+function deleteInputs() {
     inputName.value = "";
-    inputSubjet.value = "";
+    inputSubject.value = "";
     inputMessage.value = "";
-
 }
-function validarCampo (e){
-    e.preventDefault();
-    console.log("Hola!");
-}
-
